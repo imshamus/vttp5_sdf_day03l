@@ -232,7 +232,51 @@ public class App {
         List<Person> persons = new ArrayList<>();
         
         CSVManagement csv = new CSVManagement();
-        csv.readCSV(dirPathFileName);
+        persons = csv.readCSV(dirPathFileName);
+
+        // menu
+        // 1. Enter new Person details
+        // 2. Save to file (Prompt for new csv file name)
+        // 3. Quit and terminate program
+
+        Console consoleSelection = System.console();
+        Integer selection = 0;
+
+        while (selection != 3)
+        {
+            System.out.println("1. Enter new Person details");
+            System.out.println("2. Save to new csv file");
+            System.out.println("3. Quit program");
+
+            selection = Integer.parseInt(consoleSelection.readLine(">>>"));
+        
+            switch (selection) 
+            {
+                case 1: 
+                    Console con1 = System.console();
+
+                    String personName = con1.readLine("Enter person name: ");
+                    String personRegion = con1.readLine("Enter region/area: ");
+                    String personYOB = con1.readLine("Enter year of birth: ");
+
+                    Person p = new Person(personName, personRegion, Integer.parseInt(personYOB));
+                    persons.add(p);
+                    break;
+
+                case 2: 
+                    Console con2 = System.console();
+
+                    String newFileName = con2.readLine("Enter a CSV file to save (filename only): ");
+
+                    csv.writeCSV(dirPath + File.separator + newFileName, persons);
+                    break;
+                
+                default:
+                    break;
+
+            }
+        }
+        
 
 
     }
